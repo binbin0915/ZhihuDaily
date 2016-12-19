@@ -176,9 +176,23 @@ extension MainViewController {
         }
         
         //navigationBar文字变化
-        print("\(indexPath.section):\(indexPath.row)")
-        
-        
+        OperationQueue().addOperation {
+            let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
+                (partialResult, indexPath) -> Int in
+                return min(partialResult, indexPath.section)
+            })
+            
+            
+            if displaySection == 0 {
+                OperationQueue.main.addOperation {
+                    self.navigationItem.title = "今日热文"
+                }
+            } else {
+                OperationQueue.main.addOperation {
+                    self.navigationItem.title = self.news[displaySection!].formatDate
+                }
+            }
+        }
     }
     
     
