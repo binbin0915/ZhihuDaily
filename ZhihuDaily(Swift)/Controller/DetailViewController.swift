@@ -45,8 +45,7 @@ extension DetailViewController {
     func setupBannerView() {
         
         bannerView = BannerViewCell(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: bannerViewHeight))
-//        bannerView.contentMode = .scaleAspectFill
-//        bannerView.clipsToBounds = true
+
     }
     
     func setupWebView() {
@@ -54,7 +53,6 @@ extension DetailViewController {
         let webScrollView = webView.subviews[0] as! UIScrollView
         webScrollView.contentInset.top = -20
         webScrollView.delegate = self
-//        webView.clipsToBounds = false
         webScrollView.addSubview(bannerView)
     }
     
@@ -125,6 +123,8 @@ extension DetailViewController : UIScrollViewDelegate {
             let offsetY = scrollView.contentOffset.y
             bannerView.bannerImageView.frame.origin.y = min(offsetY, 0)
             bannerView.bannerImageView.frame.size.height = max(bannerViewHeight, bannerViewHeight - offsetY)
+            
+            bannerView.bannerLabelView.alpha = 1 + offsetY / 150
         }
         
     }

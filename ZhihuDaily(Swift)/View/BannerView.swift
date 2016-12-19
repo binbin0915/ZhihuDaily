@@ -83,7 +83,6 @@ extension BannerView {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
-//        collectionView.bounces = false
         
         collectionView.delegate = self
         collectionView.dataSource = self

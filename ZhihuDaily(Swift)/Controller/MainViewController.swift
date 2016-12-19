@@ -46,6 +46,7 @@ class MainViewController: UITableViewController {
         setupNavigationBar()
         setupTableView()
         setupBannerView()
+        
         loadLatestNews()
         
     }
@@ -63,9 +64,10 @@ extension MainViewController {
     
     fileprivate func setupNavigationBar() {
         let navBar = navigationController?.navigationBar
-//        navBar?.isTranslucent = false
         navBar?.shadowImage = UIImage()
         navBar?.barTintColor = Theme.themeColor
+        navBar?.tintColor = UIColor.white
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navBar?.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
     
@@ -73,12 +75,9 @@ extension MainViewController {
     fileprivate func setupTableView() {
         tableView.rowHeight = 101
         tableView.showsVerticalScrollIndicator = false
-//        tableView.estimatedRowHeight = 101
         tableView.contentInset.top = -64
-//        tableView.scrollIndicatorInsets.top = tableView.contentInset.top
-//        tableView.clipsToBounds = false
         tableView.backgroundColor = UIColor.white
-//弹簧效果        tableView.bounces = false
+        
         //header注册
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
     }
@@ -87,6 +86,7 @@ extension MainViewController {
     fileprivate func setupBannerView() {
         bannerView.delegate = self
     }
+    
     
 }
 
@@ -212,30 +212,12 @@ extension MainViewController {
         }
         
         
-//        OperationQueue().addOperation {
-//            let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
-//                (partialResult, indexPath) -> Int in
-//                return min(partialResult, indexPath.section)
-//            })
-//            
-//            
-//            if displaySection == 0 {
-//                OperationQueue.main.addOperation {
-//                    self.navigationItem.title = "今日热文"
-//                }
-//            } else {
-//                OperationQueue.main.addOperation {
-//                    self.navigationItem.title = self.news[displaySection!].formatDate
-//                }
-//            }
-//        }
     }
     
     
     //cell点击
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectStory(news[indexPath.section].stories[indexPath.row])
-//        selecStory(story: news[indexPath.section].stories[indexPath.row])
     }
     
     
@@ -263,22 +245,10 @@ extension MainViewController: BannerViewDelegate {
     
     func tapBanner(topStories: Story) {
         selectStory(topStories)
-//        selecStory(story: topStories)
     }
     
     
 }
 
-
-//// MARK: - 跳转详细视图
-//extension MainViewController {
-//    
-//    func selecStory(story: Story) {
-//        
-//        performSegue(withIdentifier: "pushSegue", sender: nil)
-//        
-//    }
-//    
-//}
 
 
