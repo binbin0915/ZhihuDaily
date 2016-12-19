@@ -49,6 +49,11 @@ class MainViewController: UITableViewController {
         loadLatestNews()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
 
 }
 
@@ -67,10 +72,11 @@ extension MainViewController {
     
     fileprivate func setupTableView() {
         tableView.rowHeight = 101
+        tableView.showsVerticalScrollIndicator = false
 //        tableView.estimatedRowHeight = 101
         tableView.contentInset.top = -64
-        tableView.scrollIndicatorInsets.top = tableView.contentInset.top
-        tableView.clipsToBounds = false
+//        tableView.scrollIndicatorInsets.top = tableView.contentInset.top
+//        tableView.clipsToBounds = false
         tableView.backgroundColor = UIColor.white
 //弹簧效果        tableView.bounces = false
         //header注册
@@ -189,29 +195,47 @@ extension MainViewController {
          
          
          */
-        OperationQueue().addOperation {
-            let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
-                (partialResult, indexPath) -> Int in
-                return min(partialResult, indexPath.section)
-            })
-            
-            
-            if displaySection == 0 {
-                OperationQueue.main.addOperation {
-                    self.navigationItem.title = "今日热文"
-                }
-            } else {
-                OperationQueue.main.addOperation {
-                    self.navigationItem.title = self.news[displaySection!].formatDate
-                }
+        
+        let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
+            (partialResult, indexPath) -> Int in
+            return min(partialResult, indexPath.section)
+        })
+        
+        if displaySection == 0 {
+            DispatchQueue.main.async { [weak self] in
+                self!.navigationItem.title = "今日热文"
+            }
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self!.navigationItem.title = self!.news[displaySection!].formatDate
             }
         }
+        
+        
+//        OperationQueue().addOperation {
+//            let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
+//                (partialResult, indexPath) -> Int in
+//                return min(partialResult, indexPath.section)
+//            })
+//            
+//            
+//            if displaySection == 0 {
+//                OperationQueue.main.addOperation {
+//                    self.navigationItem.title = "今日热文"
+//                }
+//            } else {
+//                OperationQueue.main.addOperation {
+//                    self.navigationItem.title = self.news[displaySection!].formatDate
+//                }
+//            }
+//        }
     }
     
     
     //cell点击
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectStory(news[indexPath.section].stories[indexPath.row])
+//        selecStory(story: news[indexPath.section].stories[indexPath.row])
     }
     
     
@@ -234,14 +258,27 @@ extension MainViewController {
     
 }
 
-
 // MARK: - BannerViewDelegate
 extension MainViewController: BannerViewDelegate {
     
     func tapBanner(topStories: Story) {
         selectStory(topStories)
+//        selecStory(story: topStories)
     }
     
     
 }
+
+
+//// MARK: - 跳转详细视图
+//extension MainViewController {
+//    
+//    func selecStory(story: Story) {
+//        
+//        performSegue(withIdentifier: "pushSegue", sender: nil)
+//        
+//    }
+//    
+//}
+
 

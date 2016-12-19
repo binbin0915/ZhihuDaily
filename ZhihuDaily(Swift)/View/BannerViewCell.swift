@@ -60,18 +60,29 @@ extension BannerViewCell {
         //BannerImage
         bannerImageView.af_setImage(withURL: topStory.url)
         
-        
         //bannerLabel
-        bannerLabelView.text = topStory.title
+        configBannerLabelText(title: topStory.title)
+        
+    }
+    
+    func configData(title: String, imageString: String) {
+        bannerImageView.af_setImage(withURL: URL(string: imageString.replacingOccurrences(of: "http", with: "https"))!)
+        configBannerLabelText(title: title)
+    }
+    
+    
+    fileprivate func configBannerLabelText(title: String) {
+        
+        bannerLabelView.text = title
         // frame
         let textWidth = UIScreen.main.bounds.size.width - 2 * bannerLabelMargin
-        let textHeight = topStory.title.getTextHeight(textWidth: textWidth, font: bannerLabelView.font)
+        let textHeight = title.getTextHeight(textWidth: textWidth, font: bannerLabelView.font)
         let labelX = bannerLabelMargin
         let labelY = frame.size.height - 37 - textHeight
         
         bannerLabelView.frame = CGRect(x: labelX, y: labelY, width: textWidth, height: textHeight)
         
-        
     }
+    
     
 }

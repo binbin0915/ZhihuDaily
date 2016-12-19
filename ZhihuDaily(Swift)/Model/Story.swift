@@ -15,6 +15,9 @@ struct Story {
     var url: URL {
         return URL(string: urlString.replacingOccurrences(of: "http", with: "https"))!//http 转https
     }
+    var storyURL: URL {
+        return URL(string: "https://news-at.zhihu.com/api/4/news/\(id)")!
+    }
     
 }
 

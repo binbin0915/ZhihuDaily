@@ -20,17 +20,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovU-Xu-3yI">
-                                <rect key="frame" x="139" y="352" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6RS-Rl-xew">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6RS-Rl-xew" firstAttribute="top" secondItem="G5a-wP-vKi" secondAttribute="top" id="Khz-yc-6qZ"/>
+                            <constraint firstItem="6RS-Rl-xew" firstAttribute="leading" secondItem="G5a-wP-vKi" secondAttribute="leading" id="YCG-tQ-51a"/>
+                            <constraint firstItem="Ucx-ng-fg7" firstAttribute="top" secondItem="6RS-Rl-xew" secondAttribute="bottom" id="fwd-YJ-QK4"/>
+                            <constraint firstAttribute="trailing" secondItem="6RS-Rl-xew" secondAttribute="trailing" id="k6m-dW-egX"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="webView" destination="6RS-Rl-xew" id="vqh-0t-m3S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKU-Ba-equ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="71" y="448"/>
+            <point key="canvasLocation" x="758" y="463"/>
         </scene>
     </scenes>
 </document>

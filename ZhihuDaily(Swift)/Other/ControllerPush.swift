@@ -11,18 +11,21 @@ import UIKit
 struct ControllerPush {
     
     let mainNavigationVC: UINavigationController
-    
+    let mainVC: MainViewController
     init(window: UIWindow) {
         
         mainNavigationVC = window.rootViewController as! UINavigationController
-        let mainVC = mainNavigationVC.viewControllers[0] as! MainViewController
+        mainVC = mainNavigationVC.viewControllers[0] as! MainViewController
         mainVC.selectStory = showStory
         
     }
     
     func showStory(story: Story) {
         
-        mainNavigationVC.pushViewController(UIStoryboard(name: "Detail", bundle: nil).instantiateInitialViewController()!, animated: true)
+//        mainVC.performSegue(withIdentifier: "pushSegue", sender: nil)
+        let detailVC = UIStoryboard(name: "Detail", bundle: nil).instantiateInitialViewController() as! DetailViewController
+        detailVC.story = story
+        mainNavigationVC.pushViewController(detailVC, animated: true)
         
     }
     
