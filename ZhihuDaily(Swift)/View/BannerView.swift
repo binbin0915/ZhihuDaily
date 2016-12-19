@@ -8,6 +8,11 @@
 
 import UIKit
 
+//Banner Delegate
+protocol BannerViewDelegate {
+    func tapBanner(topStories: Story)
+}
+
 class BannerView: UIView {
 
     var collectionView: UICollectionView!
@@ -21,6 +26,11 @@ class BannerView: UIView {
             collectionView.contentOffset.x = UIScreen.main.bounds.size.width
         }
     }
+    
+    //Banner Delegate
+    var delegate: BannerViewDelegate?
+    
+    
     //Banner 随动
     var bannerOffset: CGFloat = 0 {
         didSet {
@@ -139,12 +149,8 @@ extension BannerView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     // MARK: - collectionView Delegate
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        
-        
-    }
     
+    //监听滚动
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let screenWidth = UIScreen.main.bounds.size.width
@@ -161,9 +167,14 @@ extension BannerView: UICollectionViewDelegate, UICollectionViewDataSource {
             break
         }
         
-        
     }
     
+    
+    //监听点击
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //delegate
+        delegate?.tapBanner(topStories: topStories[pageControl.currentPage])
+    }
     
     
 }

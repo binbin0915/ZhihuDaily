@@ -36,6 +36,8 @@ class MainViewController: UITableViewController {
         }
     }
     
+    //执行点击cell和Banner的闭包
+    var selectStory: (Story) -> () = {_ in}
     
     
     override func viewDidLoad() {
@@ -43,6 +45,7 @@ class MainViewController: UITableViewController {
 
         setupNavigationBar()
         setupTableView()
+        setupBannerView()
         loadLatestNews()
         
     }
@@ -54,18 +57,15 @@ class MainViewController: UITableViewController {
 extension MainViewController {
     
     fileprivate func setupNavigationBar() {
-        
         let navBar = navigationController?.navigationBar
 //        navBar?.isTranslucent = false
         navBar?.shadowImage = UIImage()
         navBar?.barTintColor = Theme.themeColor
         navBar?.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        
-        
     }
     
+    
     fileprivate func setupTableView() {
-        
         tableView.rowHeight = 101
 //        tableView.estimatedRowHeight = 101
         tableView.contentInset.top = -64
@@ -77,6 +77,11 @@ extension MainViewController {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
     }
     
+    
+    fileprivate func setupBannerView() {
+        bannerView.delegate = self
+    }
+    
 }
 
 
@@ -84,10 +89,11 @@ extension MainViewController {
 // MARK: - Get Data
 extension MainViewController {
     
-    
+    //新数据
     func loadLatestNews() {
         loadNews(url: News.latestNewsURL)
     }
+    //旧数据
     func loadPreviousNews() {
         loadNews(url: (news.last?.previousNewsURL)!)
     }
@@ -105,20 +111,14 @@ extension MainViewController {
                     self.topStories = self.news[0].topStories!
                 }
                 
-                
-                
             case .failure(let error):
                 print(error)
                 
             default: break
-                
-            }
             
+            }
         }
-        
     }
-    
-    
     
 }
 
@@ -158,6 +158,7 @@ extension MainViewController {
         return header
         
     }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
             return 40
@@ -166,6 +167,8 @@ extension MainViewController {
         }
     
     }
+    
+    
     
     // MARK: - Table view Delegate
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -176,6 +179,16 @@ extension MainViewController {
         }
         
         //navigationBar文字变化
+        /*
+         ⬇️reduce函数原理：取出当前所有显示的rowCell所在的section值 与
+         一个无穷大的值进行比对(如Int.max)返回最小值，partialResult会接收
+         每次比对的操作结果进行下次比对，reduce函数操作完成后会返回当前显示cell
+         所在section最小值，当页面所有旧cell都完全不显示了，displaySection就会取
+         得新值(0完全不显示了，就会轮到1和Int.max比对)
+         
+         
+         
+         */
         OperationQueue().addOperation {
             let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
                 (partialResult, indexPath) -> Int in
@@ -196,8 +209,13 @@ extension MainViewController {
     }
     
     
+    //cell点击
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectStory(news[indexPath.section].stories[indexPath.row])
+    }
     
-    // MARK: - 监听滚动
+    
+    // MARK: - scrollViewDidScroll 监听滚动
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //Banner随动
@@ -215,3 +233,15 @@ extension MainViewController {
     
     
 }
+
+
+// MARK: - BannerViewDelegate
+extension MainViewController: BannerViewDelegate {
+    
+    func tapBanner(topStories: Story) {
+        selectStory(topStories)
+    }
+    
+    
+}
+

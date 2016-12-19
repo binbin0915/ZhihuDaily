@@ -13,12 +13,16 @@ import Alamofire
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var controllerPush: ControllerPush?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
         window?.makeKeyAndVisible()
+        
+        if let window = window {
+            controllerPush = ControllerPush(window: window)
+        }
         
         //启动动画
         setupLaunchImage()
