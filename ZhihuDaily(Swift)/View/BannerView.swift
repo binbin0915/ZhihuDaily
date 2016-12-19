@@ -18,6 +18,7 @@ class BannerView: UIView {
     var collectionView: UICollectionView!
     var pageControl: UIPageControl!
     let pageControlHeight: CGFloat = 37
+    var autoScrollTimer: Timer?
     
     //Banner Data
     var topStories = [Story]() {
@@ -60,6 +61,7 @@ class BannerView: UIView {
         
         setupCollectionView()
         setupPageControl()
+        configAutoScrollTimer()
     }
 
 }
@@ -168,12 +170,41 @@ extension BannerView: UICollectionViewDelegate, UICollectionViewDataSource {
         
     }
     
+    //控制自动轮播
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        autoScrollTimer?.invalidate()
+        autoScrollTimer = nil
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        configAutoScrollTimer()
+    }
+    
+    
     
     //监听点击
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //delegate
         delegate?.tapBanner(topStories: topStories[pageControl.currentPage])
     }
+}
+
+
+
+// MARK: - Banner自动定时轮播
+extension BannerView {
     
+    func configAutoScrollTimer() {
+        
+        autoScrollTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(autoScrollBanner), userInfo: nil, repeats: true)
+        
+    }
+    
+    func autoScrollBanner() {
+        let currentOffsetX = collectionView.contentOffset.x
+        let point = CGPoint(x: currentOffsetX + UIScreen.main.bounds.size.width, y: 0)
+        collectionView.setContentOffset(point, animated: true)
+        print("timer")
+    }
     
 }
+
