@@ -8,6 +8,10 @@
 
 import UIKit
 
+//json字典别名
+typealias JSONDictionary = [String : AnyObject]
+
+
 extension UIColor {
     
     static var randomColor: UIColor {

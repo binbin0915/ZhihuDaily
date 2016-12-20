@@ -203,7 +203,6 @@ extension BannerView {
         let currentOffsetX = collectionView.contentOffset.x
         let point = CGPoint(x: currentOffsetX + UIScreen.main.bounds.size.width, y: 0)
         collectionView.setContentOffset(point, animated: true)
-        print("timer")
     }
     
 }

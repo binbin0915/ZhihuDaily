@@ -60,26 +60,49 @@ extension AppDelegate {
     
     func setupLaunchImage() {
         
+//        if let LaunchImageData = UserDefaults.standard.data(forKey: "LaunchImage") {
+//            let launchImageView = UIImageView(frame: UIScreen.main.bounds)
+//            launchImageView.backgroundColor = UIColor.white
+//            window?.addSubview(launchImageView)
+//            launchImageView.image = UIImage(data: LaunchImageData)
+//            UIView.animate(withDuration: 2, animations: {
+//                
+//                launchImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+//                launchImageView.alpha = 0
+//                
+//            }, completion: { (_) in
+//                
+//                launchImageView.removeFromSuperview()
+//                
+//            })
+//
+//        }
+//        
+//        downLaunchImage()
+        
+        
+        let launchImageView = UIImageView(frame: UIScreen.main.bounds)
+        window?.addSubview(launchImageView)
+        
         if let LaunchImageData = UserDefaults.standard.data(forKey: "LaunchImage") {
-            let launchImageView = UIImageView(frame: UIScreen.main.bounds)
-            launchImageView.backgroundColor = UIColor.white
-            window?.addSubview(launchImageView)
             launchImageView.image = UIImage(data: LaunchImageData)
-            UIView.animate(withDuration: 2, animations: {
-                
-                launchImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                launchImageView.alpha = 0
-                
-            }, completion: { (_) in
-                
-                launchImageView.removeFromSuperview()
-                
-            })
-
+        }else {
+            launchImageView.image = #imageLiteral(resourceName: "Splash_Image")
         }
         
-        downLaunchImage()
         
+        UIView.animate(withDuration: 2, animations: {
+            
+            launchImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+//            launchImageView.alpha = 0
+            
+        }, completion: { (_) in
+            
+            launchImageView.removeFromSuperview()
+            
+        })
+        
+        downLaunchImage()
     }
     
     

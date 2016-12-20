@@ -156,14 +156,30 @@ extension MainViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
         
-        header?.textLabel?.text = news[section].formatDate
-        header?.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        header?.textLabel?.textColor = UIColor.white
+//        header?.textLabel?.text = news[section].formatDate
+//        header?.textLabel?.font = UIFont.systemFont(ofSize: 14)
+//        header?.textLabel?.textAlignment = .center
+//        header?.textLabel?.textColor = UIColor.white
+//        header?.contentView.backgroundColor = Theme.themeColor
+        
+        let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 40))
+        textLabel.text = news[section].formatDate
+        textLabel.font = UIFont.systemFont(ofSize: 14)
+        textLabel.textAlignment = .center
+        textLabel.textColor = UIColor.white
+        
         header?.contentView.backgroundColor = Theme.themeColor
+        header?.addSubview(textLabel)
         
         return header
-        
     }
+//
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        UILabel.appearance(whenContainedInInstancesOf: <#T##[UIAppearanceContainer.Type]#>)
+//        
+//        return news[section].formatDate
+//        
+//    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
