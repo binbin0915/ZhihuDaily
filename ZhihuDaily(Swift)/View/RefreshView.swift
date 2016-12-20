@@ -79,14 +79,8 @@ extension RefreshView {
     func startAnimation() {
         indicatorView.startAnimating()
     }
-    func stopAnimating() {
-        let delayQueue = DispatchQueue(label: "com.appcoda.delayqueue", qos: .userInitiated)
-        delayQueue.asyncAfter(deadline: .now() + 1) {
-            
-            self.indicatorView.stopAnimating()
-        }
-        
-        
+    func stopAnimation() {
+        indicatorView.stopAnimating()
     }
     
     

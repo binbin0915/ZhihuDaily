@@ -22,16 +22,18 @@ class MainViewController: UIViewController {
         return tableView.contentOffset.y
     }
     
-    var isRefreshing: Bool = false {
+    var isRefreshing: Bool! {
         didSet {
             if isRefreshing == true {
                 reFreshView.updateProgress(progress: 0)
                 reFreshView.startAnimation()
+                news.removeAll()
                 loadLatestNews()
                 
             }else {
-                reFreshView.stopAnimating()
-                
+                DispatchQueue.main.async { [weak self] in
+                    self?.reFreshView.stopAnimation()
+                }
             }
             
         }
@@ -50,12 +52,10 @@ class MainViewController: UIViewController {
                 
                 if self?.isRefreshing == true {
                     self?.tableView.reloadData()
-//                    self?.isRefreshing = false
-                    return
+                }else{
+                    self?.tableView.insertSections(IndexSet(integer: (self?.news.count)! - 1), with: .top)
                 }
                 
-                self?.tableView.insertSections(IndexSet(integer: (self?.news.count)! - 1), with: .top)
-               
                 
             }
         }
@@ -120,7 +120,7 @@ extension MainViewController {
     }
     
     fileprivate func setupRefreshView() {
-        
+        isRefreshing = false
         
     }
     
@@ -148,13 +148,7 @@ extension MainViewController {
             case .success(let json as JSONDictionary):
                 let new = News.parse(json: json)
                 
-                if self.isRefreshing == true {
-                    self.news.removeFirst()
-                    self.news.insert(new, at: 0)
-                    
-                }else{
-                    self.news.append(new)
-                }
+                self.news.append(new)
                 //Banner
                 if(self.news.count == 1){
                     self.topStories = self.news[0].topStories!
@@ -302,6 +296,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         //松手进入刷新状态
         if -currentOffset > refreshOffset && isRefreshing == false{
             isRefreshing = true
+            
+            let delayQueue = DispatchQueue(label: "com.appcoda.delayqueue", qos: .userInitiated)
+            delayQueue.asyncAfter(deadline: .now() + 2) {
+                self.isRefreshing = false
+            }
+        
         }
         
     }
