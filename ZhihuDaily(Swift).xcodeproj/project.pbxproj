@@ -23,6 +23,7 @@
 		83A485C81DFA64CC007A1965 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83A485C61DFA64CC007A1965 /* Main.storyboard */; };
 		83A485CA1DFA64CC007A1965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83A485C91DFA64CC007A1965 /* Assets.xcassets */; };
 		83A485CD1DFA64CC007A1965 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83A485CB1DFA64CC007A1965 /* LaunchScreen.storyboard */; };
+		83C7BA711E094A6300659D5B /* RefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7BA701E094A6300659D5B /* RefreshView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		83A485C91DFA64CC007A1965 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83A485CC1DFA64CC007A1965 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83A485CE1DFA64CC007A1965 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83C7BA701E094A6300659D5B /* RefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				83693DD91DFBC45B009737DC /* StoryCell.swift */,
 				83885D881DFAB81F00D45EDD /* BannerView.swift */,
 				8353FA8D1E06ECB500AB8748 /* BannerViewCell.swift */,
+				83C7BA701E094A6300659D5B /* RefreshView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				8353FA941E07EAC300AB8748 /* DetailViewController.swift in Sources */,
 				83885D871DFA9D6800D45EDD /* MainViewController.swift in Sources */,
 				83885D891DFAB81F00D45EDD /* BannerView.swift in Sources */,
+				83C7BA711E094A6300659D5B /* RefreshView.swift in Sources */,
 				8353FA901E06FBE900AB8748 /* Extension.swift in Sources */,
 				83693DDC1DFCE48F009737DC /* News.swift in Sources */,
 				83693DDA1DFBC45B009737DC /* StoryCell.swift in Sources */,

@@ -85,14 +85,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TTN-hg-bB0" customClass="RefreshView" customModule="ZhihuDaily_Swift_" customModuleProvider="target">
+                                <rect key="frame" x="118" y="32" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="QA4-nm-7xX"/>
+                                    <constraint firstAttribute="width" constant="20" id="hfy-Zk-Tap"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Sot-aV-mNE" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="1DF-Dt-Ahu"/>
                             <constraint firstItem="36R-ZY-2kw" firstAttribute="top" secondItem="oFS-4e-EDJ" secondAttribute="bottom" id="4eE-td-s9f"/>
+                            <constraint firstItem="TTN-hg-bB0" firstAttribute="centerY" secondItem="oog-0a-r09" secondAttribute="centerY" id="EUJ-bD-65B"/>
                             <constraint firstAttribute="trailing" secondItem="Sot-aV-mNE" secondAttribute="trailing" id="Jm4-WB-obY"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="MTk-Rg-AiA"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="R3h-4L-pPG"/>
+                            <constraint firstItem="TTN-hg-bB0" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" constant="118" id="XbE-gR-fA1"/>
                             <constraint firstItem="oog-0a-r09" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" constant="20" id="huE-3b-Lh1"/>
                             <constraint firstAttribute="trailing" secondItem="oog-0a-r09" secondAttribute="trailing" id="jLS-Hg-cxr"/>
                             <constraint firstItem="Sot-aV-mNE" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="k0h-bV-iIg"/>
@@ -104,6 +113,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="bannerView" destination="EAH-hr-WOI" id="tPi-a2-jCH"/>
+                        <outlet property="reFreshView" destination="TTN-hg-bB0" id="TUL-gs-Ca0"/>
                         <outlet property="tableView" destination="oFS-4e-EDJ" id="Biv-Ef-Zxq"/>
                         <outlet property="topLabel" destination="oog-0a-r09" id="SkO-9D-D9e"/>
                         <outlet property="topView" destination="Sot-aV-mNE" id="FbC-sb-Lzi"/>

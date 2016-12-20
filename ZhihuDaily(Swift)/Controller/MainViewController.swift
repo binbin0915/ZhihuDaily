@@ -16,18 +16,46 @@ class MainViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bannerView: BannerView!
+    @IBOutlet weak var reFreshView: RefreshView!
     
+    var currentOffset: CGFloat {
+        return tableView.contentOffset.y
+    }
+    
+    var isRefreshing: Bool = false {
+        didSet {
+            if isRefreshing == true {
+                reFreshView.updateProgress(progress: 0)
+                reFreshView.startAnimation()
+                loadLatestNews()
+                
+            }else {
+                reFreshView.stopAnimating()
+                
+            }
+            
+        }
+        
+    }
+    let refreshOffset: CGFloat = 40
     let bannerViewHeight: CGFloat = 200
     
     var topViewAlpha: CGFloat {
-        return tableView.contentOffset.y / (bannerViewHeight - 64)
+        return currentOffset / (bannerViewHeight - 64)
     }
     
     var news = [News]() {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                //局部刷新tableView
+                
+                if self?.isRefreshing == true {
+                    self?.tableView.reloadData()
+//                    self?.isRefreshing = false
+                    return
+                }
+                
                 self?.tableView.insertSections(IndexSet(integer: (self?.news.count)! - 1), with: .top)
+               
                 
             }
         }
@@ -46,11 +74,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupTopView()
         setupTableView()
         setupBannerView()
-
+        setupRefreshView()
+        
         loadLatestNews()
         
     }
@@ -68,7 +97,7 @@ extension MainViewController {
     
     fileprivate func setupTopView() {
         topView.backgroundColor = Theme.themeColor
-//        topView.isHidden = true
+        
     }
     
     
@@ -90,6 +119,10 @@ extension MainViewController {
         bannerView.delegate = self
     }
     
+    fileprivate func setupRefreshView() {
+        
+        
+    }
     
 }
 
@@ -114,13 +147,21 @@ extension MainViewController {
                 
             case .success(let json as JSONDictionary):
                 let new = News.parse(json: json)
-                self.news.append(new)
+                
+                if self.isRefreshing == true {
+                    self.news.removeFirst()
+                    self.news.insert(new, at: 0)
+                    
+                }else{
+                    self.news.append(new)
+                }
                 //Banner
                 if(self.news.count == 1){
                     self.topStories = self.news[0].topStories!
                 }
                 
             case .failure(let error):
+                self.isRefreshing = false
                 print(error)
                 
             default: break
@@ -229,23 +270,23 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        
     }
     
-    
-    //cell点击
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectStory(news[indexPath.section].stories[indexPath.row])
-    }
     
     
     // MARK: - scrollViewDidScroll 监听滚动
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        //下拉刷新
+        if isRefreshing == false {
+            reFreshView.updateProgress(progress: -currentOffset / refreshOffset)
+        }
         
-        //Banner随动
-        if tableView.contentOffset.y < 0{
-        bannerView.bannerOffset = tableView.contentOffset.y
+        
+        if currentOffset < 0{
+            //Banner随动
+            bannerView.bannerOffset = currentOffset
+            
         }
         
         //导航栏透明变化
@@ -254,9 +295,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
         topView.alpha = topViewAlpha
         
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        //松手进入刷新状态
+        if -currentOffset > refreshOffset && isRefreshing == false{
+            isRefreshing = true
+        }
         
     }
     
+    
+    
+    
+    //cell点击
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectStory(news[indexPath.section].stories[indexPath.row])
+    }
     
 }
 
