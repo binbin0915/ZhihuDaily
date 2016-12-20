@@ -26,7 +26,7 @@
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="EAH-hr-WOI" customClass="BannerView" customModule="ZhihuDaily_Swift_" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StoryCell" rowHeight="101" id="x0a-d3-Bek" customClass="StoryCell" customModule="ZhihuDaily_Swift_" customModuleProvider="target">
@@ -73,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="UQF-0O-rFc"/>
+                                    <constraint firstAttribute="height" constant="64" id="vSY-6g-qbT"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日热闻" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oog-0a-r09">
@@ -88,14 +88,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Sot-aV-mNE" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="1DF-Dt-Ahu"/>
                             <constraint firstItem="36R-ZY-2kw" firstAttribute="top" secondItem="oFS-4e-EDJ" secondAttribute="bottom" id="4eE-td-s9f"/>
+                            <constraint firstAttribute="trailing" secondItem="Sot-aV-mNE" secondAttribute="trailing" id="Jm4-WB-obY"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="MTk-Rg-AiA"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="R3h-4L-pPG"/>
-                            <constraint firstAttribute="trailing" secondItem="Sot-aV-mNE" secondAttribute="trailing" id="Wup-s2-3Kf"/>
-                            <constraint firstItem="Sot-aV-mNE" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="X0R-mo-hsM"/>
-                            <constraint firstItem="Sot-aV-mNE" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="ehd-jY-XsB"/>
                             <constraint firstItem="oog-0a-r09" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" constant="20" id="huE-3b-Lh1"/>
                             <constraint firstAttribute="trailing" secondItem="oog-0a-r09" secondAttribute="trailing" id="jLS-Hg-cxr"/>
+                            <constraint firstItem="Sot-aV-mNE" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="k0h-bV-iIg"/>
                             <constraint firstItem="oog-0a-r09" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="l2i-go-uuU"/>
                             <constraint firstAttribute="trailing" secondItem="oFS-4e-EDJ" secondAttribute="trailing" id="lnV-wu-z0k"/>
                         </constraints>

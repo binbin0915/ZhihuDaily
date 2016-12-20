@@ -20,11 +20,10 @@ struct News {
         let dayIndex = date.index(date.endIndex, offsetBy: -2)
         let monthRange = yearIndex ..< dayIndex
         
-        let year = date.substring(to: yearIndex)
         let month = date.substring(with: monthRange)
         let day = date.substring(from: dayIndex)
         
-        return "\(month)月\(day)日"
+        return "\(month)月\(day)日 \(date.getWeekDay())"
         
     }
     

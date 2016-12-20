@@ -34,4 +34,21 @@ extension String {
         return rect.height
     }
     
+    
+    //获取星期几 针对东八区
+    func getWeekDay() -> String{
+        
+        let weeks = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+        
+        let dateFmt = DateFormatter()
+        dateFmt.dateFormat = "yyyyMMdd"
+        let date = dateFmt.date(from: self)
+        let interval = Int(date!.timeIntervalSince1970) + 24*60*60*8 //+8小时
+        let days = Int(interval/(24*60*60))
+        let weekday = ((days + 4)%7+7)%7
+        
+        return weeks[weekday]
+        
+    }
+    
 }

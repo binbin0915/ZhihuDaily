@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
         setupTopView()
         setupTableView()
         setupBannerView()
-        
+
         loadLatestNews()
         
     }
@@ -68,6 +68,7 @@ extension MainViewController {
     
     fileprivate func setupTopView() {
         topView.backgroundColor = Theme.themeColor
+//        topView.isHidden = true
     }
     
     
@@ -75,8 +76,8 @@ extension MainViewController {
         tableView.rowHeight = 101
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInset.top = -20
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor.white
-        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -156,31 +157,31 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Table view Header
      func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
         
+        if section == 0 {
+            return nil
+        }
+        
+        
+//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
 //        header?.textLabel?.text = news[section].formatDate
 //        header?.textLabel?.font = UIFont.systemFont(ofSize: 14)
 //        header?.textLabel?.textAlignment = .center
 //        header?.textLabel?.textColor = UIColor.white
 //        header?.contentView.backgroundColor = Theme.themeColor
+//        return header
+        
         
         let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 40))
         textLabel.text = news[section].formatDate
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.textAlignment = .center
         textLabel.textColor = UIColor.white
+        textLabel.backgroundColor = Theme.themeColor
         
-        header?.contentView.backgroundColor = Theme.themeColor
-        header?.addSubview(textLabel)
-        return header
+        return textLabel
     }
-//    
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        UILabel.appearance(whenContainedInInstancesOf: <#T##[UIAppearanceContainer.Type]#>)
-//        
-//        return news[section].formatDate
-//        
-//    }
+
     
      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
@@ -213,20 +214,20 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
          
          */
         
-//        let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
-//            (partialResult, indexPath) -> Int in
-//            return min(partialResult, indexPath.section)
-//        })
-//        
-//        if displaySection == 0 {
-//            DispatchQueue.main.async { [weak self] in
-//                self!.navigationItem.title = "今日热文"
-//            }
-//        } else {
-//            DispatchQueue.main.async { [weak self] in
-//                self!.navigationItem.title = self!.news[displaySection!].formatDate
-//            }
-//        }
+        let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
+            (partialResult, indexPath) -> Int in
+            return min(partialResult, indexPath.section)
+        })
+        
+        if displaySection == 0 {
+            DispatchQueue.main.async { [weak self] in
+                self!.topLabel.text = "今日热文"
+            }
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self!.topLabel.text = self!.news[displaySection!].formatDate
+            }
+        }
         
         
     }
@@ -241,6 +242,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - scrollViewDidScroll 监听滚动
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        
         //Banner随动
         if tableView.contentOffset.y < 0{
         bannerView.bannerOffset = tableView.contentOffset.y
@@ -251,6 +253,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         topView.alpha = topViewAlpha
+        
         
     }
     
