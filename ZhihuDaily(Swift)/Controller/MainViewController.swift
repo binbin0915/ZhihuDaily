@@ -10,12 +10,16 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class MainViewController: UITableViewController {
+class MainViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bannerView: BannerView!
+    
     let bannerViewHeight: CGFloat = 200
     
-    var navigationBarAlpha: CGFloat {
+    var topViewAlpha: CGFloat {
         return tableView.contentOffset.y / (bannerViewHeight - 64)
     }
     
@@ -43,40 +47,38 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavigationBar()
+        setupTopView()
         setupTableView()
         setupBannerView()
         
         loadLatestNews()
         
     }
-    
+    //隐藏默认导航栏
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
     }
-
+    
 }
 
 
 // MARK: - setup
 extension MainViewController {
     
-    fileprivate func setupNavigationBar() {
-        let navBar = navigationController?.navigationBar
-        navBar?.shadowImage = UIImage()
-        navBar?.barTintColor = Theme.themeColor
-        navBar?.tintColor = UIColor.white
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        navBar?.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+    fileprivate func setupTopView() {
+        topView.backgroundColor = Theme.themeColor
     }
     
     
     fileprivate func setupTableView() {
         tableView.rowHeight = 101
         tableView.showsVerticalScrollIndicator = false
-        tableView.contentInset.top = -64
+        tableView.contentInset.top = -20
         tableView.backgroundColor = UIColor.white
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         
         //header注册
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -132,19 +134,19 @@ extension MainViewController {
 
 
 // MARK: - tableView
-extension MainViewController {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return news.count
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return news[section].stories.count
     }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as? StoryCell
         cell?.story = news[indexPath.section].stories[indexPath.row]
@@ -153,7 +155,7 @@ extension MainViewController {
     
     
     // MARK: - Table view Header
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
         
 //        header?.textLabel?.text = news[section].formatDate
@@ -170,10 +172,9 @@ extension MainViewController {
         
         header?.contentView.backgroundColor = Theme.themeColor
         header?.addSubview(textLabel)
-        
         return header
     }
-//
+//    
 //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        UILabel.appearance(whenContainedInInstancesOf: <#T##[UIAppearanceContainer.Type]#>)
 //        
@@ -181,7 +182,7 @@ extension MainViewController {
 //        
 //    }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
             return 40
         }else {
@@ -193,7 +194,7 @@ extension MainViewController {
     
     
     // MARK: - Table view Delegate
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         //提前加载下一列数据
         if indexPath.section == news.count - 1 && indexPath.row == 0 {
@@ -212,33 +213,33 @@ extension MainViewController {
          
          */
         
-        let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
-            (partialResult, indexPath) -> Int in
-            return min(partialResult, indexPath.section)
-        })
-        
-        if displaySection == 0 {
-            DispatchQueue.main.async { [weak self] in
-                self!.navigationItem.title = "今日热文"
-            }
-        } else {
-            DispatchQueue.main.async { [weak self] in
-                self!.navigationItem.title = self!.news[displaySection!].formatDate
-            }
-        }
+//        let displaySection = tableView.indexPathsForVisibleRows?.reduce(Int.max, {
+//            (partialResult, indexPath) -> Int in
+//            return min(partialResult, indexPath.section)
+//        })
+//        
+//        if displaySection == 0 {
+//            DispatchQueue.main.async { [weak self] in
+//                self!.navigationItem.title = "今日热文"
+//            }
+//        } else {
+//            DispatchQueue.main.async { [weak self] in
+//                self!.navigationItem.title = self!.news[displaySection!].formatDate
+//            }
+//        }
         
         
     }
     
     
     //cell点击
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectStory(news[indexPath.section].stories[indexPath.row])
     }
     
     
     // MARK: - scrollViewDidScroll 监听滚动
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //Banner随动
         if tableView.contentOffset.y < 0{
@@ -246,10 +247,10 @@ extension MainViewController {
         }
         
         //导航栏透明变化
-        if navigationBarAlpha > 1 && navigationBarAlpha < 0{
+        if topViewAlpha > 1 && topViewAlpha < 0{
             return
         }
-        navigationController?.navigationBar.subviews.first?.alpha = navigationBarAlpha
+        topView.alpha = topViewAlpha
         
     }
     

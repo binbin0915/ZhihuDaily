@@ -24,7 +24,7 @@ struct News {
         let month = date.substring(with: monthRange)
         let day = date.substring(from: dayIndex)
         
-        return "\(year)年 \(month)月 \(day)日"
+        return "\(month)月\(day)日"
         
     }
     
