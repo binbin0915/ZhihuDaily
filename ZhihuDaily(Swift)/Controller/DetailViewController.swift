@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     }
     
     var bannerView: BannerViewCell!
-    let bannerViewHeight: CGFloat = 200
+    let bannerViewHeight: CGFloat = Theme.bannerViewHeight
     
     override func viewDidLoad() {
         super.viewDidLoad()

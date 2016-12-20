@@ -57,7 +57,7 @@ class BannerView: UIView {
         
         super.awakeFromNib()
         //重新调整BannerView位置
-        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 200)
+        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: Theme.bannerViewHeight)
         
         setupCollectionView()
         setupPageControl()

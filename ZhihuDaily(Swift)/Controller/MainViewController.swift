@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
         
     }
     let refreshOffset: CGFloat = 40
-    let bannerViewHeight: CGFloat = 200
+    let bannerViewHeight: CGFloat = Theme.bannerViewHeight
     
     var topViewAlpha: CGFloat {
         return currentOffset / (bannerViewHeight - 64)
