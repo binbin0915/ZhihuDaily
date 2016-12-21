@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -86,7 +87,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TTN-hg-bB0" customClass="RefreshView" customModule="ZhihuDaily_Swift_" customModuleProvider="target">
-                                <rect key="frame" x="120" y="32" width="20" height="20"/>
+                                <rect key="frame" x="121.5" y="32" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="QA4-nm-7xX"/>
                                     <constraint firstAttribute="width" constant="20" id="hfy-Zk-Tap"/>
@@ -101,7 +102,7 @@
                             <constraint firstAttribute="trailing" secondItem="Sot-aV-mNE" secondAttribute="trailing" id="Jm4-WB-obY"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" id="MTk-Rg-AiA"/>
                             <constraint firstItem="oFS-4e-EDJ" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="R3h-4L-pPG"/>
-                            <constraint firstItem="TTN-hg-bB0" firstAttribute="leading" secondItem="27Z-Df-zUL" secondAttribute="leading" constant="120" id="XbE-gR-fA1"/>
+                            <constraint firstItem="TTN-hg-bB0" firstAttribute="centerX" secondItem="Sot-aV-mNE" secondAttribute="centerX" multiplier="0.7" id="ZTn-JW-Tjd"/>
                             <constraint firstItem="oog-0a-r09" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" constant="20" id="huE-3b-Lh1"/>
                             <constraint firstAttribute="trailing" secondItem="oog-0a-r09" secondAttribute="trailing" id="jLS-Hg-cxr"/>
                             <constraint firstItem="Sot-aV-mNE" firstAttribute="top" secondItem="27Z-Df-zUL" secondAttribute="top" id="k0h-bV-iIg"/>
@@ -121,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaH-UP-8fj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1288.8" y="-10.344827586206897"/>
+            <point key="canvasLocation" x="521" y="-570"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ywB-jp-noK">
@@ -139,7 +140,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n84-Vg-WlM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="-10"/>
+            <point key="canvasLocation" x="-188" y="-569"/>
         </scene>
     </scenes>
 </document>

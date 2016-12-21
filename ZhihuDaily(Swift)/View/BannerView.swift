@@ -155,16 +155,15 @@ extension BannerView: UICollectionViewDelegate, UICollectionViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let screenWidth = UIScreen.main.bounds.size.width
-        let contentIndex = collectionView.contentOffset.x / screenWidth
-        switch contentIndex {
-        case 0:
+        switch collectionView.contentOffset.x {
+        case 0 :
             collectionView.contentOffset.x = 5 * screenWidth
-            pageControl.currentPage = 5
-        case 6:
+            pageControl.currentPage = 4
+        case 6 * screenWidth :
             collectionView.contentOffset.x = screenWidth
             pageControl.currentPage = 0
         default:
-            pageControl.currentPage = Int (contentIndex) - 1
+            pageControl.currentPage = Int ((collectionView.contentOffset.x) / screenWidth) - 1
             break
         }
         

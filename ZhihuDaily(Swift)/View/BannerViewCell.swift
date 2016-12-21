@@ -50,7 +50,7 @@ extension BannerViewCell {
         bannerLabelView.textColor = UIColor.white
         bannerLabelView.numberOfLines = 0
         bannerLabelView.font = UIFont.boldSystemFont(ofSize: 20)
-        
+        bannerLabelView.alpha = 1
         addSubview(bannerLabelView)
     }
     
