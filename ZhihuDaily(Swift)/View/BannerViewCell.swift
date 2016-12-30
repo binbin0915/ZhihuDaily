@@ -40,7 +40,6 @@ extension BannerViewCell {
         bannerImageView = UIImageView(frame: frame)
         bannerImageView.clipsToBounds = true
         bannerImageView.contentMode = .scaleAspectFill
-        
         addSubview(bannerImageView)
         
     }
@@ -49,8 +48,8 @@ extension BannerViewCell {
         bannerLabelView = UILabel()
         bannerLabelView.textColor = UIColor.white
         bannerLabelView.numberOfLines = 0
+        
         bannerLabelView.font = UIFont.boldSystemFont(ofSize: 20)
-        bannerLabelView.alpha = 1
         addSubview(bannerLabelView)
     }
     
@@ -74,6 +73,8 @@ extension BannerViewCell {
     fileprivate func configBannerLabelText(title: String) {
         
         bannerLabelView.text = title
+        bannerLabelView.alpha = 1
+        
         // frame
         let textWidth = UIScreen.main.bounds.size.width - 2 * bannerLabelMargin
         let textHeight = title.getTextHeight(textWidth: textWidth, font: bannerLabelView.font)
